@@ -1,0 +1,38 @@
+<h2>User info</h2>
+<!-- ユーザーの詳細 -->
+<div>
+  <%= image_tag user.get_profile_image(200,200) %>
+</div>
+
+<table>
+  <thead>
+    <th>name</th>
+    <th>introduction</th>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.introduction %></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<% if user == current_user %>
+    <%= link_to edit_user_path(user), class: 'btn btn-outline-secondary form-control' do %>
+    <i class="fas fa-user-cog"></i>
+    <% end %>
+  <% end %>
+
+<h1>New book</h1>
+<%= form_with model: Book.new do |f| %>
+
+    <h4>Title</h4>
+      <%= f.text_field :title %>
+
+    <h4>Opinion</h4>
+      <%= f.text_area :body %>
+
+    <%= f.submit 'Create Book' %>
+    <% end %>
