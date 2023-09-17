@@ -23,9 +23,15 @@
   </tbody>
 </table>
 
-<%= link_to edit_user_path(@user.id), class: 'btn btn-outline-secondary form-control' do %>
-<i class="fas fa-user-cog"></i>
-<% end %>
+<% if @user == current_user %>
+    <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary form-control" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+<% else %>
+    <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary form-control" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+    <% end %>
 
 <h1>New book</h1>
 <%= form_with model: Book.new do |f| %>
@@ -59,6 +65,25 @@
           <%= link_to "Destroy", book_path(book), method: :delete, "data-confirm" => "本当に消しますか？" %>
           <% end %>
       </td>
+      
+        <% if book.favorited_by?(current_user) %>
+          <td>
+            <%= link_to book_favorites_path(book), method: :delete do %>
+              <i class="fas fa-heart"></i>
+              <%= book.favorites.count %> いいね
+            <% end %>
+          </td>
+        <% else %>
+          <td>
+            <%= link_to book_favorites_path(book), method: :post do %>
+              <i class="fas fa-heart"></i>
+              <%= book.favorites.count %> いいね
+            <% end %>
+          </td>
+        <% end %>
+      
+      <td>コメント件数：<%= book.book_comments.count %></td>
+
     </tr>
     <% end %>
   </tbody>

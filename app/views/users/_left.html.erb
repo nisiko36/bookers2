@@ -20,10 +20,14 @@
 </table>
 
 <% if user == current_user %>
-    <%= link_to edit_user_path(user), class: 'btn btn-outline-secondary form-control' do %>
-    <i class="fas fa-user-cog"></i>
+    <%= link_to edit_user_path(user.id), class:"btn btn-outline-secondary form-control" do %>
+      <i class="fas fa-user-cog"></i>
     <% end %>
-  <% end %>
+<% else %>
+    <%= link_to edit_user_path(user.id), class:"btn btn-outline-secondary form-control" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+    <% end %>
 
 <h1>New book</h1>
 <%= form_with model: Book.new do |f| %>
